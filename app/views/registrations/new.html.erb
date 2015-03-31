@@ -1,0 +1,22 @@
+
+  <div class="form">
+
+<%= form_for @user, url: signup_path do |f| %>
+
+
+  <%= f.text_field :first_name, class: "user-form", placeholder: "First Name" %>
+
+
+  <%= f.text_field :last_name, class: "user-form", placeholder: "Last Name" %>
+
+
+  <%= f.email_field :email, class: "user-form", placeholder: "Email" %>
+
+  <div class="has-feedback lower-glyphicon">
+    <%= f.password_field :password, class: "user-form", placeholder: "Password" %>
+    <i class="fa fa-lock form-control-feedback lift"></i>
+  </div>
+
+
+  <%= f.submit "Log In", class: "profile-button" %>
+<% end %>

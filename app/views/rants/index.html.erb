@@ -1,0 +1,33 @@
+<div class="scroll">
+  <% if @rants.count > 0 %>
+      <% @rants.reverse_each do |rant| %>
+      <div class="rant-frame">
+        <div class="rant-header">
+          <% if current_user && current_user.id == rant.user_id %>
+            <%= link_to "Edit", edit_rant_path(rant), class: "body-button fa fa-edit" %>
+          <% end %>
+         <h2><%= rant.title %></h2><br>
+</div>
+
+
+
+               <div class="avatar">
+               </div>
+
+               <div class ="rant-content">
+                 <%= rant.body %>
+               </div>
+             </div>
+
+           <% end %>
+             <% else %>
+
+             <div class ="rant-frame">
+               <center>
+               <h2> These aren't the droids you are looking for.</h2>
+               <h5>Keep Searching</h5>
+             </center>
+             </div>
+           </div>
+
+<% end %>

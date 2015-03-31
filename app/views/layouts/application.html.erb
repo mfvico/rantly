@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rantly</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,900|Laila:700|Hind' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+
+  <div class="navbar">
+     <div class="container">
+         <%= link_to "Rantly", root_path %>
+         <span><%= link_to "Rants", root_path %></span>
+         <span><%= link_to "Users", users_path %></span>
+         <span><%= link_to "Styleguide", new_rant_path %></span>
+         <% if current_user %>
+            <span class="pull-right"><%= current_user.full_name %></span>
+            <% else %>
+            <span class="pull-right"><%= link_to "Sign Up", signup_path, class: "signup"  %></span>
+
+         <% end %>
+       </div>
+     </div>
+
+     <div class="search-header">
+       <div class="container">
+           <%= form_tag search_path, class:"search", :method => 'get' do %>
+               <% if params[:search] == "" %>
+                 <%= text_field_tag :search, params[:search], placeholder: "This can't be blank!", class: "search" %>
+               <% else %>
+                  <%= text_field_tag :search, params[:search], placeholder: "Search", class: "search" %>
+               <% end %>
+               <% end %>
+             <%= link_to "New Rant", new_rant_path, class: "new-button" %>
+
+         </div>
+       </div>
+
+    <div class="container">
+      <div class="login-frame">
+        <% if current_user == nil %>
+          <br>
+          <%= form_tag signin_path do  %>
+
+          <div class = "has-feedback">
+            <%= email_field_tag :email, nil, class:"user-form", placeholder: "Your email" %>
+            <i class="fa fa-user form-control-feedback"></i>
+          </div>
+
+          <div class = "has-feedback">
+            <%= password_field_tag :password, nil, class:"user-form", placeholder: "Your password" %>
+            <i class="fa fa-lock form-control-feedback"></i>
+          </div><br>
+              <div>
+                <%= submit_tag "Log In", class: "profile-button" %>
+              </div>
+              <div class="side-notice">
+                <% if notice.is_a? String %>
+
+                <%= notice %>
+
+            <% end %>
+              </div>
+
+
+            <% end %>
+            <% else %>
+            <div class="picture" style="background-image: url('<%= current_user.gravatar_url %>')">
+              </div>
+              <br>
+              <%= link_to "Log Out", signout_path, method: :delete, class: "profile-button drop"  %>
+              <%= yield :side_error %>
+
+            <% end %>
+
+
+
+      </div>
+
+      <div class="sub-container">
+        <% if notice.is_a? String %>
+
+        <%= notice %>
+
+    <% end %>
+
+          <span class="scroll"><%= yield %></span>
+      </div>
+     </div>
+
+</body>
+
+</html>
